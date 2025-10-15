@@ -1,0 +1,43 @@
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.car-title img {
+    margin-right: 10px;
+}
+
+.car-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    gap: 1rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+    color: white;
+}
+
+.car-title img {
+    height: 50px;
+    width: 50px;
+}
+
+.car-summary p {
+    font-size: 14px;
+}
+
+article {
+    width: 70vw;
+    height: 30vw;
+    text-align: left;
+    margin-bottom: 5px;
+    transition: transform 0.5s ease;
+}
+
+#article:hover {
+    transform: scale(1.1);
+}
