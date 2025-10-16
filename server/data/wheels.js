@@ -39,7 +39,7 @@ const wheelData = [
         "id": 7,
         "name": "Visible Carbon",
         "price": 600,
-        "image": "https://boltbucket-exemplar.onrender.com/images/wheels/visible_carbon.avif"
+        "image": "https://boltbucket-exemplar.onrender.com/images/wheels/visible_carbon_spoke.avif"
     },
 ]
 

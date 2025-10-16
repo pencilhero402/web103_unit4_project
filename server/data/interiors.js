@@ -9,7 +9,7 @@ const interiorData = [
         "id": 2,
         "name": "Habanero",
         "price": 2000,
-        "image": "https://boltbucket-exemplar.onrender.com/images/interiors/habanero.jpg"
+        "image": "https://boltbucket-exemplar.onrender.com/images/interiors/habanero_interior.jpg"
     },
     {
         "id": 3,
@@ -33,7 +33,7 @@ const interiorData = [
         "id": 6,
         "name": "Jet Black with Red Stitching",
         "price": 1500,
-        "image": "https://boltbucket-exemplar.onrender.com/images/interiors/jet_black_with_red_stitching.jpg"
+        "image": "https://boltbucket-exemplar.onrender.com/images/interiors/jet_black_red_stitching.jpg"
     },
     {
         "id": 7,
@@ -70,7 +70,7 @@ const interiorData = [
         "id": 12,
         "name": "Two-Tone Red and Black",
         "price": 2000,
-        "image": "https://boltbucket-exemplar.onrender.com/images/interiors/two_tone_red_black.avif"
+        "image": "https://boltbucket-exemplar.onrender.com/images/interiors/two_toned_red_black.avif"
     },
 ]
 

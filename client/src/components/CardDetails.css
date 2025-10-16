@@ -84,3 +84,17 @@ article {
     display: flex;
     flex-direction: row;
 }
+
+.overlay-grid {
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    overflow-y: auto;
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 10px;
+    row-gap: 10px;
+}

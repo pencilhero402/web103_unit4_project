@@ -3,26 +3,65 @@ import '../App.css'
 import { useParams } from 'react-router-dom'
 import EditCard from '../components/EditCard'
 import CarsAPI from '../services/CarsAPI'
+import ExteriorsAPI from '../services/ExteriorsAPI'
+import RoofsAPI from '../services/RoofsAPI'
+import WheelsAPI from '../services/WheelsAPI'
+import InteriorsAPI from '../services/InteriorsAPI'
 
 const EditCar = () => {
     const { id } = useParams();
-    const [carData, setCarData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    
+    // Fetch carData
+    const [carData, setCarData] = useState(null);
 
-    useEffect (() => {
-        const fetchCarData = async () => {
+    // Fetch exteriorsData
+    const [exteriors, setExteriorsData] = useState([]);
+
+    // Fetch roofsData
+    const [roofs, setRoofsData] = useState([]);
+
+    // Fetch wheelsData
+    const [wheels, setWheelsData] = useState([]);
+
+    // Fetch interiorsData
+    const [interiors, setInteriorsData] = useState([]);
+
+    useEffect(() => {
+        const fetchAllData = async () => {
             try {
-                const data = await CarsAPI.getCarById(id)
-                setCarData(data)
-                setLoading(false)
+                const [carData, exteriorsData, roofsData, wheelsData, interiorsData] = await Promise.all([
+                    await CarsAPI.getCarById(id),
+                    await ExteriorsAPI.getAllExteriors(),
+                    await RoofsAPI.getAllRoofs(),
+                    await WheelsAPI.getAllWheels(),
+                    await InteriorsAPI.getAllInteriors()
+                ]);
+
+                setCarData(carData);
+                setExteriorsData(exteriorsData);
+                setRoofsData(roofsData);
+                setWheelsData(wheelsData);
+                setInteriorsData(interiorsData);
+
+                //console.log("Fetched car data: ", carData);
+                //console.log("Fetched exteriors data: ", exteriorsData);
+                //console.log("Fetched roofs data: ", roofsData);
+                //console.log("Fetched wheels data: ", wheelsData);
+                //console.log("Fetched interiors data: ", interiorsData);
+
             } catch (error) {
                 setError(error.message);
-                setLoading(false);
+            } finally {
+                setLoading(false)
+                //console.log("Finished")
             }
         };
-        fetchCarData();
+
+        fetchAllData();
     }, [id]);
+
 
     if (loading) {
         return <div>Loading...</div>
@@ -35,7 +74,14 @@ const EditCar = () => {
     return (
         <div className="car">
             <main>
-                {carData && <EditCard {...carData} />}
+                {carData && (
+                    <EditCard 
+                        {...carData} 
+                        exteriors={exteriors}
+                        roofs={roofs}
+                        wheels={wheels}
+                        interiors={interiors}
+                    />)}
             </main>
         </div>
     )
