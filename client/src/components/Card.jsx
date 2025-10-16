@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import './Card.css'
 
-const Card = ( { id, name, convertible, exterior_color, roof_name, wheel_name, interior_name, cost } ) => {
-    
+const Card = ( { id, name, convertible, exterior_color, exterior_cost, roof_name, roof_cost, wheel_name, wheel_cost, interior_name, interior_cost, cost } ) => {
+    const total = cost + exterior_cost + roof_cost + wheel_cost + interior_cost
     return (
         <article id="article">
             <header>
@@ -34,8 +32,7 @@ const Card = ( { id, name, convertible, exterior_color, roof_name, wheel_name, i
                     </p>
                 </div>
                 <div className='car-price'>
-                    💰 $
-                    <p>{cost}</p>
+                    <h3>💰 ${total}</h3>
                     <a href= {`/customcars/${id}`} role="button">Details</a>
                 </div>
             </div>

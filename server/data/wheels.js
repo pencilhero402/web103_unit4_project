@@ -21,7 +21,7 @@ const wheelData = [
         "id": 4,
         "name": "Edge Blue",
         "price": 600,
-        "image": "https://boltbucket-exemplar.onrender.com/images/wheels/edge_blue.avif"
+        "image": "https://boltbucket-exemplar.onrender.com/images/wheels/edge_blue_spoke.avif"
     },
     {
         "id": 5,
@@ -33,7 +33,7 @@ const wheelData = [
         "id": 6,
         "name": "Sterling Silver",
         "price": 500,
-        "image": "https://boltbucket-exemplar.onrender.com/images/wheels/sterling_silver.avif"
+        "image": "https://boltbucket-exemplar.onrender.com/images/wheels/sterling_silver_spoke.avif"
     },
     {
         "id": 7,

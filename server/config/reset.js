@@ -100,125 +100,91 @@ const createInteriorsTable = async () => {
 const seedExteriorsTable = async() => {
     await createExteriorsTable();
 
-    exteriorData.forEach((exterior) => {
-        const insertQuery = {
-            text: 'INSERT INTO exteriors (color, price, image) VALUES ($1, $2, $3) ON CONFLICT (color) DO NOTHING;' 
-        }
-
-        const values = [
-            exterior.color,
-            exterior.price,
-            exterior.image
-        ]
-
-        pool.query(insertQuery, values, (err, res) => {
-            if (err) {
-                console.error('⚠️ error inserting exteriors', err)
-                return
+    for (const exterior of exteriorData) {
+        try {
+            const insertQuery = {
+                text: 'INSERT INTO exteriors (color, price, image) VALUES ($1, $2, $3) ON CONFLICT (color) DO NOTHING;',
+                values: [exterior.color,exterior.price,exterior.image]
             }
+            await pool.query(insertQuery)
             console.log(`✅ ${exterior.color} added successfully`)
-            })
-    })
+        } catch (err) {
+            console.error('⚠️ error inserting exteriors', err)
+            return
+        }
+    }
 };
 
 const seedRoofsTable = async() => {
     await createRoofsTable();
 
-    roofData.forEach((roof) => {
-        const insertQuery = {
-            text: 'INSERT INTO roofs (name, price, image) VALUES ($1, $2, $3) ON CONFLICT (name) DO NOTHING;'
-        }
-
-        const values = [
-            roof.name,
-            roof.price,
-            roof.image
-        ]
-
-        pool.query(insertQuery, values, (err, res) => {
-            if (err) {
-                console.error('⚠️ error inserting roofs', err)
-                return
+    for (const roof of roofData) {
+        try {
+            const insertQuery = {
+                text: 'INSERT INTO roofs (name, price, image) VALUES ($1, $2, $3) ON CONFLICT (name) DO NOTHING;',
+                values: [roof.name, roof.price, roof.image]
             }
+            await pool.query(insertQuery)
             console.log(`✅ ${roof.name} added successfully`)
-            })
-    })
+        } catch (err) {
+            console.error('⚠️ error inserting roofs', err)
+            return
+        }
+    }
 };
 
 const seedWheelsTable = async() => {
     await createWheelsTable();
 
-    wheelData.forEach((wheel) => {
-        const insertQuery = {
-            text: 'INSERT INTO wheels (name, price, image) VALUES ($1, $2, $3) ON CONFLICT (name) DO NOTHING;'
-        }
-
-        const values = [
-            wheel.name,
-            wheel.price,
-            wheel.image
-        ]
-
-        pool.query(insertQuery, values, (err, res) => {
-            if (err) {
-                console.error('⚠️ error inserting wheels', err)
-                return
+    for (const wheel of wheelData) {
+        try {
+            const insertQuery = {
+                text: 'INSERT INTO wheels (name, price, image) VALUES ($1, $2, $3) ON CONFLICT (name) DO NOTHING;',
+                values: [wheel.name, wheel.price, wheel.image]
             }
+            await pool.query(insertQuery)
             console.log(`✅ ${wheel.name} added successfully`)
-            })
-    })
+        } catch (err) {
+            console.error('⚠️ error inserting wheels', err)
+            return
+        }
+    }
 };
 
 const seedInteriorsTable = async() => {
     await createInteriorsTable();
 
-    interiorData.forEach((interior) => {
-        const insertQuery = {
-            text: 'INSERT INTO interiors (name, price, image) VALUES ($1, $2, $3) ON CONFLICT (name) DO NOTHING;'
-        }
-
-        const values = [
-            interior.name,
-            interior.price,
-            interior.image
-        ]
-
-        pool.query(insertQuery, values, (err, res) => {
-            if (err) {
-                console.error('⚠️ error inserting interiors', err)
-                return
+    for (const interior of interiorData) {
+        try {
+            const insertQuery = {
+                text: 'INSERT INTO interiors (name, price, image) VALUES ($1, $2, $3) ON CONFLICT (name) DO NOTHING;',
+                values: [interior.name, interior.price, interior.image]
             }
+            await pool.query(insertQuery)
             console.log(`✅ ${interior.name} added successfully`)
-            })
-    })
+        } catch (err) {
+            console.error('⚠️ error inserting interiors', err)
+            return
+        }
+    }
 };
 
 const seedCarsTable = async () => {
     await createCarsTable();
-
-    carData.forEach((car) => {
-        const insertQuery = {
-            text: 'INSERT INTO cars (name, convertible, exterior_id, roof_id, wheel_id, interior_id, cost) VALUES ($1, $2, $3, $4, $5, $6, $7)'
-        }
-
-        const values = [
-            car.name,
-            car.convertible,
-            car.exterior_id,
-            car.roof_id,
-            car.wheel_id,
-            car.interior_id,
-            car.cost
-        ]
-
-        pool.query(insertQuery, values, (err, res) => {
-            if (err) {
-                console.error('⚠️ error inserting cars', err)
-                return
+    
+    for (const car of carData) {
+        try {
+            const insertQuery = {
+                text: 'INSERT INTO cars (name, convertible, exterior_id, roof_id, wheel_id, interior_id, cost) VALUES ($1, $2, $3, $4, $5, $6, $7)',
+                values: [car.name, car.convertible, car.exterior_id, car.roof_id, car.wheel_id, car.interior_id, car.cost]
             }
+            await pool.query(insertQuery)
             console.log(`✅ ${car.name} added successfully`)
-            })
-    })
+        } catch (err) {
+            console.error('⚠️ error inserting cars', err)
+            return
+        }
+    }
 };
 
 async function seedAllTables() {

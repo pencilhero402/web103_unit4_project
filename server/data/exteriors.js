@@ -1,7 +1,7 @@
 const exteriorData = [
     {
         "id": 1,
-        "color": "Silver Flar Metallic",
+        "color": "Silver Flare Metallic",
         "price": "500",
         "image": "https://boltbucket-exemplar.onrender.com/images/exteriors/silver_flare_metallic.png"
     },

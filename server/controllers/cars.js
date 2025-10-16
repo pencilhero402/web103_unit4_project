@@ -26,9 +26,13 @@ const CarsController = {
                     cars.interior_id,
                     cars.cost,
                     exteriors.color AS exterior_color,
+                    exteriors.price AS exterior_cost,
                     roofs.name AS roof_name,
+                    roofs.price AS roof_cost,
                     wheels.name AS wheel_name,
-                    interiors.name AS interior_name
+                    wheels.price AS wheel_cost,
+                    interiors.name AS interior_name,
+                    interiors.price AS interior_cost
                 FROM cars
                 LEFT JOIN exteriors ON cars.exterior_id = exteriors.id
                 LEFT JOIN roofs ON cars.roof_id = roofs.id
@@ -40,6 +44,46 @@ const CarsController = {
             res.status(200).json(results.rows);
         } catch(error) {
             res.status(409).json({error: error.message});        
+        }
+    },
+    getCarById: async (req, res) => {
+        const { id } = req.params;
+        
+        const query = `
+            SELECT
+                cars.id,
+                cars.name,
+                cars.convertible,
+                cars.exterior_id,
+                cars.roof_id,
+                cars.wheel_id,
+                cars.interior_id,
+                cars.cost,
+                exteriors.color AS exterior_color,
+                exteriors.image AS exterior_image,
+                exteriors.price AS exterior_cost,
+                roofs.name AS roof_name,
+                roofs.image AS roof_image,
+                roofs.price AS roof_cost,
+                wheels.name AS wheel_name,
+                wheels.image AS wheel_image,
+                wheels.price AS wheel_cost,
+                interiors.name AS interior_name,
+                interiors.image AS interior_image,
+                interiors.price AS interior_cost
+            FROM cars
+            LEFT JOIN exteriors ON cars.exterior_id = exteriors.id
+            LEFT JOIN roofs ON cars.roof_id = roofs.id
+            LEFT JOIN wheels ON cars.wheel_id = wheels.id
+            LEFT JOIN interiors ON cars.interior_id = interiors.id
+            WHERE cars.id = $1
+        `;
+        try {
+            const result = await pool.query(query, [id]);
+            res.status(200).json(result.rows[0]);
+        } catch (error) {
+            console.error('Error fetching car by id:', error);
+            res.status(409).json({error: error.message}); 
         }
     },
 };

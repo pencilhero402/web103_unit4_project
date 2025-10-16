@@ -51,13 +51,14 @@ const interiorData = [
         "id": 9,
         "name": "Natural",
         "price": 2000,
-        "image": "https://boltbucket-exemplar.onrender.com/images/interiors/natural.jpg"
+        "image": "https://boltbucket-exemplar.onrender.com/images/interiors/natural_perforated.jpg"
+        
     },
     {
         "id": 10,
         "name": "Sky Cool Gray",
         "price": 1000,
-        "image": "https://boltbucket-exemplar.onrender.com/images/interiors/sky_cool_gray.jpg"
+        "image": "https://boltbucket-exemplar.onrender.com/images/interiors/sky_cool_grey_perforated.jpg"
     },
     {
         "id": 11,
@@ -69,7 +70,7 @@ const interiorData = [
         "id": 12,
         "name": "Two-Tone Red and Black",
         "price": 2000,
-        "image": "https://boltbucket-exemplar.onrender.com/images/interiors/two_tone_red_and_black.avif"
+        "image": "https://boltbucket-exemplar.onrender.com/images/interiors/two_tone_red_black.avif"
     },
 ]
 

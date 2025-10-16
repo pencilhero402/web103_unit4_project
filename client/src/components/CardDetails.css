@@ -1,0 +1,86 @@
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.car-title img {
+    margin-right: 10px;
+}
+
+.details-content {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr;
+    column-gap: 40px;
+    row-gap: 40px;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+    color: white;
+}
+
+.car-selection {
+  width: 400px;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.car-selection-overlay {
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.8);
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: #fff;
+  opacity: 0;
+  transition: all .5s;
+}
+
+.car-selection-details {
+  transform: translateY(50px);
+  transition: all .7s;
+}
+
+.car-selection:hover .car-selection-overlay{
+    opacity: 1
+}
+
+.car-selection:hover .car-selection-details {
+  transform: translateY(0); 
+  opacity: 1; 
+}
+
+.option-price {
+    font-weight: 500;
+}
+
+.car-modify {
+    display: flex;
+    flex-direction: row;
+    height: 80px;
+}
+
+article {
+    width: 90vw;
+    height: auto;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+/* Edit Card */
+.header-buttons {
+    display: flex;
+    flex-direction: row;
+}

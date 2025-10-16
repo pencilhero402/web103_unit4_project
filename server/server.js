@@ -1,6 +1,10 @@
 import express from 'express'
 import cors from 'cors'
 import carsRouter from './routes/cars.js'
+import exteriorsRouter from './routes/exteriors.js'
+import roofsRouter from './routes/roofs.js'
+import wheelsRouter from './routes/wheels.js'
+import interiorsRouter from './routes/interiors.js'
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -15,6 +19,10 @@ app.use(express.json())
 
 // routes
 app.use('/api/', carsRouter)
+app.use('/api/', exteriorsRouter)
+app.use('/api/', roofsRouter)
+app.use('/api/', wheelsRouter)
+app.use('/api/', interiorsRouter)
 
 // Root route
 app.get('/', (req, res) => {
