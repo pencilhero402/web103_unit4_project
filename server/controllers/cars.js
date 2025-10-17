@@ -46,6 +46,7 @@ const CarsController = {
             res.status(409).json({error: error.message});        
         }
     },
+
     getCarById: async (req, res) => {
         const { id } = req.params;
         
@@ -83,6 +84,28 @@ const CarsController = {
             res.status(200).json(result.rows[0]);
         } catch (error) {
             console.error('Error fetching car by id:', error);
+            res.status(409).json({error: error.message}); 
+        }
+    },
+
+    updateCar: async (req, res) => {
+        const { id } = req.params;
+        const { exterior_id, roof_id, wheel_id, interior_id } = req.body;
+        try {
+            const query = `
+                UPDATE cars
+                SET 
+                    exterior_id = $1,
+                    roof_id = $2, 
+                    wheel_id = $3,
+                    interior_id = $4
+                WHERE id = $5
+                RETURNING *;
+            `;
+            const values = [exterior_id, roof_id, wheel_id, interior_id, id];
+            const result = await pool.query(query, values)
+            res.status(200).json(result.rows[0]);
+        } catch (error) {
             res.status(409).json({error: error.message}); 
         }
     },

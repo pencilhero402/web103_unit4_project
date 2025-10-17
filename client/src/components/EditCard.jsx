@@ -1,144 +1,184 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Modal from 'react-modal';
 import './CardDetails.css'
 
-const CardDetails = ( { id, name, exteriors, roofs, wheels, interiors, exterior_color, exterior_image, exterior_cost, roof_name, roof_image, roof_cost, wheel_name, wheel_image, wheel_cost, interior_name, interior_image, interior_cost, cost } ) => {
-    const total = cost + exterior_cost + roof_cost + wheel_cost + interior_cost
+Modal.setAppElement('#root');
 
-    // States to handle visibility of image grids
+const CardDetails = ( { carData, exteriors, roofs, wheels, interiors, onUpdate } ) => {
+    
+    // Open modal and set active grid type
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [activeGrid, setActiveGrid] = useState(null);
 
-    const handleButtonClick = (gridType) => {
+    // State to track modal selection
+    const [selectedExterior, setSelectedExterior] = useState(exteriors.find(exterior => exterior.id === carData?.exterior_id) || exteriors[0]);
+    const [selectedRoof, setSelectedRoof] = useState(roofs.find(roof => roof.id === carData?.roof_id || roofs[0]));
+    const [selectedWheel, setSelectedWheel] = useState(wheels.find(wheel => wheel.id === carData?.wheel_id || wheels[0]));
+    const [selectedInterior, setSelectedInterior] = useState(interiors.find(interior => interior.id === carData?.interior_id || interiors[0]));
+
+    const openGridModal = (gridType) => {
         setActiveGrid(gridType)
-        console.log("Fetched: ", gridType)
+        setIsModalOpen(true)
     }
-    
+
+    const closeModal = () => {
+        setIsModalOpen(false)
+    }
+
+    const handleSelectItem = (item) => {
+        switch (activeGrid) {
+            case 'exteriors':
+                setSelectedExterior(item);
+                break;
+            case 'roofs':
+                setSelectedRoof(item);  
+                break;
+            case 'wheels':
+                setSelectedWheel(item); 
+                break;
+            case 'interiors':
+                setSelectedInterior(item);
+                break;
+            default:
+                break;
+        }
+    };
+
+    const handleUpdate = () => {
+        const updatedCarData = {
+            exterior_id: selectedExterior.id,
+            roof_id: selectedRoof.id,
+            wheel_id: selectedWheel.id,
+            interior_id: selectedInterior.id,
+            };
+        onUpdate(updatedCarData); 
+    };
+
+     const calculateTotal = () => {
+        return (
+            carData.cost +
+            selectedExterior.price +
+            selectedRoof.price +
+            selectedWheel.price +
+            selectedInterior.price
+        );
+    };
+
+    const [total, setTotal] = useState(calculateTotal());
+    useEffect(() => {
+        setTotal(calculateTotal());
+    }, [selectedExterior, selectedRoof, selectedWheel, selectedInterior]);
+
+
     return (
         <article>
             <header>
                 <h3 className="car-title">
                     <img src="https://boltbucket-exemplar.onrender.com/assets/coupe-6d0eccac.png" alt="car-image"></img>
-                    {name}
+                    {carData.name}
                 </h3>
                 <div className="header-buttons">
-                    <button onClick={() => handleButtonClick(exteriors)}>Exterior</button>
-                    <button onClick={() => handleButtonClick(roofs)}>Roof</button>
-                    <button onClick={() => handleButtonClick(wheels)}>Wheels</button>
-                    <button onClick={() => handleButtonClick(interiors)}>Interior</button>
+                    <button onClick={() => openGridModal('exteriors')}>Exterior</button>
+                    <button onClick={() => openGridModal('roofs')}>Roof</button>
+                    <button onClick={() => openGridModal('wheels')}>Wheels</button>
+                    <button onClick={() => openGridModal('interiors')}>Interior</button>
                 </div>
+
+                <Modal 
+                    isOpen={isModalOpen}
+                    onRequestClose={closeModal}
+                    contentLabel="Select Option"
+                    className="custom-modal-content"
+                    overlayClassName="custom-modal-overlay"
+                >
+                    <div className="grid">
+                        {(activeGrid === 'exteriors' ? exteriors : activeGrid === 'roofs' ? roofs : activeGrid === 'wheels' ? wheels : interiors).map((item, index) => (
+                            <div 
+                                key={index} 
+                                className={`grid-item ${item.id === (activeGrid === 'exteriors' ? selectedExterior.id :
+                                        activeGrid === 'roofs' ? selectedRoof.id :
+                                            activeGrid === 'wheels' ? selectedWheel.id : selectedInterior.id)
+                                        ? 'selected' : ''}`}
+                                style={{ backgroundImage: `url(${item.image})` }}
+                                onClick={() => handleSelectItem(item)}>
+                                <div className="grid-item-overlay">
+                                    <div className="grid-item-detail">
+                                        <p>{item.name || item.color} <br />
+                                             💵 ${item.price}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <button onClick={closeModal}>Done</button>
+                </Modal>
+
             </header>
             <main>
-
-                {/*----- Display active grid ------*/}
-                {activeGrid === exteriors && (
-                    <div className="grid">
-                        {exteriors.map((exterior, index) => (
-                            <div key={index} className="grid-item">
-                                <img src={exterior.image} alt={exterior.color} />
-                                <p>{exterior.color}</p>
-                                <p>💵 ${exterior.price}</p>
-                            </div>
-                        ))}
-                    </div>
-                )}
-
-                {activeGrid === roofs && (
-                    <div className="grid">
-                        {roofs.map((roof, index) => (
-                            <div key={index} className="grid-item">
-                                <img src={roof.image} alt={roof.name} />
-                                <p>{roof.name}</p>
-                                <p>💵 ${roof.price}</p>
-                            </div>
-                        ))}
-                    </div>
-                )}
-
-                {activeGrid === wheels && (
-                    <div className="grid">
-                        {wheels.map((wheel, index) => (
-                            <div key={index} className="grid-item">
-                                <img src={wheel.image} alt={wheel.name} />
-                                <p>{wheel.name}</p>
-                                <p>💵 ${wheel.price}</p>
-                            </div>
-                        ))}
-                    </div>
-                )}
-
-                {activeGrid === interiors && (
-                    <div className="grid">
-                        {interiors.map((interior, index) => (
-                            <div key={index} className="grid-item">
-                                <img src={interior.image} alt={interior.name} />
-                                <p>{interior.name}</p>
-                                <p>💵 ${interior.price}</p>
-                            </div>
-                        ))}
-                    </div>
-                )}
                 <div className='details-content'>
                     <div className='car-details-price'>
                         <h2>💰 ${total}</h2>
                     </div>
-                    <div className='car-selection' style={{backgroundImage: `url(${exterior_image})`}}>
+                    <div className='car-selection' style={{backgroundImage: `url(${selectedExterior.image})`}}>
                         <div className='car-selection-overlay'>
                             <div className='car-selection-details'>
                                 <p>
                                     <strong>🖌️ Exterior: </strong>
-                                    {exterior_color}
+                                    {selectedExterior.color}
                                 </p>
                                 <div className='option-price'>
                                     <p>
-                                        💵 $ {exterior_cost}
+                                        💵 $ {selectedExterior.price}
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className='car-selection' style={{backgroundImage: `url(${roof_image})`}}>
+                    <div className='car-selection' style={{backgroundImage: `url(${selectedRoof.image})`}}>
                         <div className='car-selection-overlay'>
                             <div className='car-selection-details'>
                                 <p>
                                     <strong>😎 Roof: </strong>
-                                    {roof_name}
+                                    {selectedRoof.name}
                                 </p>
                                 <div className='option-price'>
                                     <p>
-                                        💵 $ {roof_cost}
+                                        💵 $ {selectedRoof.price}
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className='car-modify'>
-                        <button>Update</button>
+                        <button onClick={handleUpdate}>Update</button>
                         <button>Delete</button>
                     </div>
-                    <div className='car-selection' style={{backgroundImage: `url(${wheel_image})`}}>
+                    <div className='car-selection' style={{backgroundImage: `url(${selectedWheel.image})`}}>
                         <div className='car-selection-overlay'>
                             <div className='car-selection-details'>
                                 <p>
                                     <strong>🛴 Wheels: </strong>
-                                    {wheel_name}
+                                    {selectedWheel.name}
                                 </p>
                                 <div className='option-price'>
                                     <p>
-                                        💵 $ {wheel_cost}
+                                        💵 $ {selectedWheel.price}
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className='car-selection' style={{backgroundImage: `url(${interior_image})`}}>
+                    <div className='car-selection' style={{backgroundImage: `url(${selectedInterior.image})`}}>
                         <div className='car-selection-overlay'>
                             <div className='car-selection-details'>
                                 <p>
                                     <strong>💺 Interior: </strong>
-                                    {interior_name}
+                                    {selectedInterior.name}
                                 </p>
                                 <div className='option-price'>
                                     <p>
-                                        💵 $ {interior_cost}
+                                        💵 $ {selectedInterior.price}
                                     </p>
                                 </div>
                             </div>

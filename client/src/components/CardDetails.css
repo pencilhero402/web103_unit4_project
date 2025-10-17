@@ -79,22 +79,113 @@ article {
     margin-bottom: 5px;
 }
 
-/* Edit Card */
+/* ----- Edit Card ----- */
 .header-buttons {
     display: flex;
     flex-direction: row;
 }
 
-.overlay-grid {
-    position: absolute;
-    z-index: 10;
+/* Style Modal Content */
+.custom-modal-content {
     display: flex;
-    overflow-y: auto;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
 
-.image-grid {
+.custom-modal-content button{
+    width: 100px;
+    height: 70px;
+}
+
+.custom-modal-overlay {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: #000;
+    border: 4px solid rgb(115,2,12);
+    border-radius: 4px;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80vw;
+    height: auto;
+}
+
+.custom-modal-overlay .grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    column-gap: 10px;
-    row-gap: 10px;
+    grid-template-columns: repeat(5,1fr);
+    column-gap: 20px;
+    row-gap: 20px;
+    width: 100%;
+}
+
+.grid .grid-item {
+    width: 140px;
+    height: 90px;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid white;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.grid .grid-item-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.8);
+    padding: 5px;
+    color: #fff;
+    opacity: 0;
+    transition: all .5s;
+}
+
+.grid .grid-item-detail {
+    width: 100%;
+    height: 100%;
+    bottom: 5px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: white;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.7);
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.grid .grid-item.selected {
+    border-color: green;
+    border-width: 2px;
+    border-style: solid;
+    transform: scale(1.05);
+}
+
+.grid .grid-item:hover .grid-item-overlay {
+    opacity: 1;
+}
+
+.grid .grid-item:hover .grid-item-detail {
+    opacity: 1;
+}
+
+.grid p {
+    font-size: 12px;
 }

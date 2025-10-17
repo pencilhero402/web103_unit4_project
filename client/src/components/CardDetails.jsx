@@ -45,7 +45,7 @@ const CardDetails = ( { id, name, exterior_color, exterior_image, exterior_cost,
                         </div>
                     </div>
                     <div className='car-modify'>
-                        <a href= {`/edit/2`} role="button">Edit</a>
+                        <a href= {`/edit/${id}`} role="button">Edit</a>
                         <button>Delete</button>
                     </div>
                     <div className='car-selection' style={{backgroundImage: `url(${wheel_image})`}}>

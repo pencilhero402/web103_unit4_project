@@ -28,15 +28,20 @@ const EditCar = () => {
     // Fetch interiorsData
     const [interiors, setInteriorsData] = useState([]);
 
+    // Update carData
+    const handleUpdate = async(updatedCarData) => {
+        CarsAPI.updateCar(id, updatedCarData)
+    };
+
     useEffect(() => {
         const fetchAllData = async () => {
             try {
                 const [carData, exteriorsData, roofsData, wheelsData, interiorsData] = await Promise.all([
-                    await CarsAPI.getCarById(id),
-                    await ExteriorsAPI.getAllExteriors(),
-                    await RoofsAPI.getAllRoofs(),
-                    await WheelsAPI.getAllWheels(),
-                    await InteriorsAPI.getAllInteriors()
+                    CarsAPI.getCarById(id),
+                    ExteriorsAPI.getAllExteriors(),
+                    RoofsAPI.getAllRoofs(),
+                    WheelsAPI.getAllWheels(),
+                    InteriorsAPI.getAllInteriors()
                 ]);
 
                 setCarData(carData);
@@ -76,11 +81,12 @@ const EditCar = () => {
             <main>
                 {carData && (
                     <EditCard 
-                        {...carData} 
+                        carData={carData} 
                         exteriors={exteriors}
                         roofs={roofs}
                         wheels={wheels}
                         interiors={interiors}
+                        onUpdate={handleUpdate}
                     />)}
             </main>
         </div>
