@@ -4,7 +4,7 @@ import './CardDetails.css'
 
 Modal.setAppElement('#root');
 
-const CardDetails = ( { carData, exteriors, roofs, wheels, interiors, onUpdate } ) => {
+const CardDetails = ( { carData, exteriors, roofs, wheels, interiors, onUpdate, onDelete } ) => {
     
     // Open modal and set active grid type
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -52,6 +52,13 @@ const CardDetails = ( { carData, exteriors, roofs, wheels, interiors, onUpdate }
             interior_id: selectedInterior.id,
             };
         onUpdate(updatedCarData); 
+    };
+
+    const handleDelete = () => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this car?");
+        if (confirmDelete) {
+            onDelete(carData.id);
+        }
     };
 
      const calculateTotal = () => {
@@ -152,7 +159,7 @@ const CardDetails = ( { carData, exteriors, roofs, wheels, interiors, onUpdate }
                     </div>
                     <div className='car-modify'>
                         <button onClick={handleUpdate}>Update</button>
-                        <button>Delete</button>
+                        <button onClick={handleDelete}>Delete</button>
                     </div>
                     <div className='car-selection' style={{backgroundImage: `url(${selectedWheel.image})`}}>
                         <div className='car-selection-overlay'>

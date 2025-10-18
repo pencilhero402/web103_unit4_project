@@ -9,6 +9,10 @@ const CarDetails = () => {
     const [car, setCar] = useState(null)
     const [error, setError] = useState(null)
 
+    const handleDelete = async(id) => {
+        await CarsAPI.deleteCar(id)
+    };
+
     useEffect(() => {
         const fetchCarData = async () => {
             try {
@@ -59,6 +63,7 @@ const CarDetails = () => {
                     interior_image={car.interior_image}
                     interior_cost={car.interior_cost}
                     cost={car.cost}
+                    onDelete={handleDelete}
                     />
             </main>
         </div>

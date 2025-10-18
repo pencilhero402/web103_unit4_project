@@ -1,7 +1,15 @@
 import './CardDetails.css'
 
-const CardDetails = ( { id, name, exterior_color, exterior_image, exterior_cost, roof_name, roof_image, roof_cost, wheel_name, wheel_image, wheel_cost, interior_name, interior_image, interior_cost, cost } ) => {
+const CardDetails = ( { id, name, exterior_color, exterior_image, exterior_cost, roof_name, roof_image, roof_cost, wheel_name, wheel_image, wheel_cost, interior_name, interior_image, interior_cost, cost, onDelete } ) => {
     const total = cost + exterior_cost + roof_cost + wheel_cost + interior_cost
+
+    const handleDelete = () => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this car?");
+        if (confirmDelete) {
+            onDelete(id);
+        }
+    };
+
     return (
         <article>
             <header>
@@ -46,7 +54,7 @@ const CardDetails = ( { id, name, exterior_color, exterior_image, exterior_cost,
                     </div>
                     <div className='car-modify'>
                         <a href= {`/edit/${id}`} role="button">Edit</a>
-                        <button>Delete</button>
+                        <button onClick={handleDelete}>Delete</button>
                     </div>
                     <div className='car-selection' style={{backgroundImage: `url(${wheel_image})`}}>
                         <div className='car-selection-overlay'>

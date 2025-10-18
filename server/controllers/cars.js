@@ -109,6 +109,21 @@ const CarsController = {
             res.status(409).json({error: error.message}); 
         }
     },
+
+    deleteCar: async(req, res) => {
+        const { id } = req.params;
+        if (!id) {
+            return res.status(400).json({ error: 'ID is required to delete the car' });
+        }
+
+        try {
+            const query = `DELETE FROM cars WHERE id = $1 RETURNING *;`
+            const result = await pool.query(query, [id])
+            res.status(200).json({message: `Car with ID ${id} deleted successfully`, car: result.rows[0]});
+        } catch (error) {
+            res.status(409).json({error: error.message})
+        }
+    },
 };
 
 export default CarsController;

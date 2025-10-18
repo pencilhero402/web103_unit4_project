@@ -33,6 +33,11 @@ const EditCar = () => {
         CarsAPI.updateCar(id, updatedCarData)
     };
 
+    // DELETE carData
+    const handleDelete = async(id) => {
+        await CarsAPI.deleteCar(id)
+    };
+
     useEffect(() => {
         const fetchAllData = async () => {
             try {
@@ -87,6 +92,7 @@ const EditCar = () => {
                         wheels={wheels}
                         interiors={interiors}
                         onUpdate={handleUpdate}
+                        onDelete={handleDelete}
                     />)}
             </main>
         </div>

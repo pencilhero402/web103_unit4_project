@@ -39,11 +39,56 @@ const CarsAPI = {
                 throw new Error(`Car with ID ${id} not found`)
             }
             const data = await response.json();
-            window.location = '/customcars';
+            window.location = `/customcars/${id}`;
             return data;
         } catch (error) {
             console.error("Error fetching car by ID:", error)
             throw new Error(error.message || 'Failed to update car');
+        }
+    },
+
+    createCar: async (carData) => {
+        try {
+            const requestBody = {
+                name: carData.name,
+                convertible: carData.convertible,
+                exterior_id: carData.exterior_id,
+                roof_id: carData.roof_id,
+                wheel_id: carData.wheel_id,
+                interior_id: carData.interior_id,
+                cost: carData.cost
+            };
+
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestBody),
+            }
+            const response = await fetch(`${API_URL}`, options)
+            const data = await response.json()
+            window.location = `/customcars`;
+            return data
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    deleteCar: async(id) => {
+        try {
+            const options = {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+            const response = await fetch(`${API_URL}/${id}`, options)
+            const data = await response.json()
+            window.location = `/customcars`;
+            return data
+        } catch (error) {
+            throw error;
         }
     },
 };
