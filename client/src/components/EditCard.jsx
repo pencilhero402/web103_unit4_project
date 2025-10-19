@@ -71,6 +71,15 @@ const CardDetails = ( { carData, exteriors, roofs, wheels, interiors, onUpdate, 
         );
     };
 
+    const checkConvertible = (item) => {
+        if (item.isconvertibleonly && !carData.convertible) {
+            alert("Convertible only");
+        } else {
+            handleSelectItem(item); // Otherwise, proceed with selection
+        }
+    };
+
+
     const [total, setTotal] = useState(calculateTotal());
     useEffect(() => {
         setTotal(calculateTotal());
@@ -107,11 +116,12 @@ const CardDetails = ( { carData, exteriors, roofs, wheels, interiors, onUpdate, 
                                             activeGrid === 'wheels' ? selectedWheel.id : selectedInterior.id)
                                         ? 'selected' : ''}`}
                                 style={{ backgroundImage: `url(${item.image})` }}
-                                onClick={() => handleSelectItem(item)}>
+                                onClick={() => checkConvertible(item)}>
                                 <div className="grid-item-overlay">
                                     <div className="grid-item-detail">
                                         <p>{item.name || item.color} <br />
-                                             💵 ${item.price}
+                                             💵 ${item.price}   <br />
+                                             {item.isconvertibleonly ? 'Convertible Only' : ''}
                                         </p>
                                     </div>
                                 </div>

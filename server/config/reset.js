@@ -35,7 +35,8 @@ const createExteriorsTable = async () => {
         id SERIAL PRIMARY KEY,
         color VARCHAR(100) NOT NULL UNIQUE,
         price INTEGER NOT NULL,
-        image VARCHAR(500) NOT NULL
+        image VARCHAR(500) NOT NULL,
+        isConvertibleOnly BOOLEAN NOT NULL
     );
     `
     try {
@@ -52,7 +53,8 @@ const createRoofsTable = async () => {
         id SERIAL PRIMARY KEY,
         name VARCHAR(100) NOT NULL UNIQUE,
         price INTEGER NOT NULL,
-        image VARCHAR(500) NOT NULL
+        image VARCHAR(500) NOT NULL,
+        isConvertibleOnly BOOLEAN NOT NULL
     );
     `
     try {
@@ -69,7 +71,8 @@ const createWheelsTable = async () => {
         id SERIAL PRIMARY KEY,
         name VARCHAR(100) NOT NULL UNIQUE,
         price INTEGER NOT NULL,
-        image VARCHAR(500) NOT NULL
+        image VARCHAR(500) NOT NULL,
+        isConvertibleOnly BOOLEAN NOT NULL
     );
     `
     try {
@@ -86,7 +89,8 @@ const createInteriorsTable = async () => {
         id SERIAL PRIMARY KEY,
         name VARCHAR(100) NOT NULL UNIQUE,
         price INTEGER NOT NULL,
-        image VARCHAR(500) NOT NULL
+        image VARCHAR(500) NOT NULL,
+        isConvertibleOnly BOOLEAN NOT NULL
     );
     `
     try {
@@ -103,8 +107,8 @@ const seedExteriorsTable = async() => {
     for (const exterior of exteriorData) {
         try {
             const insertQuery = {
-                text: 'INSERT INTO exteriors (color, price, image) VALUES ($1, $2, $3) ON CONFLICT (color) DO NOTHING;',
-                values: [exterior.color,exterior.price,exterior.image]
+                text: 'INSERT INTO exteriors (color, price, image, isConvertibleOnly) VALUES ($1, $2, $3, $4) ON CONFLICT (color) DO NOTHING;',
+                values: [exterior.color,exterior.price,exterior.image,exterior.isConvertibleOnly]
             }
             await pool.query(insertQuery)
             console.log(`✅ ${exterior.color} added successfully`)
@@ -121,8 +125,8 @@ const seedRoofsTable = async() => {
     for (const roof of roofData) {
         try {
             const insertQuery = {
-                text: 'INSERT INTO roofs (name, price, image) VALUES ($1, $2, $3) ON CONFLICT (name) DO NOTHING;',
-                values: [roof.name, roof.price, roof.image]
+                text: 'INSERT INTO roofs (name, price, image, isConvertibleOnly) VALUES ($1, $2, $3, $4) ON CONFLICT (name) DO NOTHING;',
+                values: [roof.name, roof.price, roof.image, roof.isConvertibleOnly]
             }
             await pool.query(insertQuery)
             console.log(`✅ ${roof.name} added successfully`)
@@ -139,8 +143,8 @@ const seedWheelsTable = async() => {
     for (const wheel of wheelData) {
         try {
             const insertQuery = {
-                text: 'INSERT INTO wheels (name, price, image) VALUES ($1, $2, $3) ON CONFLICT (name) DO NOTHING;',
-                values: [wheel.name, wheel.price, wheel.image]
+                text: 'INSERT INTO wheels (name, price, image, isConvertibleOnly) VALUES ($1, $2, $3, $4) ON CONFLICT (name) DO NOTHING;',
+                values: [wheel.name, wheel.price, wheel.image, wheel.isConvertibleOnly]
             }
             await pool.query(insertQuery)
             console.log(`✅ ${wheel.name} added successfully`)
@@ -157,8 +161,8 @@ const seedInteriorsTable = async() => {
     for (const interior of interiorData) {
         try {
             const insertQuery = {
-                text: 'INSERT INTO interiors (name, price, image) VALUES ($1, $2, $3) ON CONFLICT (name) DO NOTHING;',
-                values: [interior.name, interior.price, interior.image]
+                text: 'INSERT INTO interiors (name, price, image, isConvertibleOnly) VALUES ($1, $2, $3, $4) ON CONFLICT (name) DO NOTHING;',
+                values: [interior.name, interior.price, interior.image, interior.isConvertibleOnly]
             }
             await pool.query(insertQuery)
             console.log(`✅ ${interior.name} added successfully`)

@@ -133,6 +133,14 @@ const CreateCar = () => {
         return total;
     };
 
+    const checkConvertible = (item) => {
+        if (item.isconvertibleonly && !isConvertible) {
+            alert("Convertible only");
+        } else {
+            handleSelectItem(item); // Otherwise, proceed with selection
+        }
+    };
+
     return (
         <div>
             <main>
@@ -199,11 +207,11 @@ const CreateCar = () => {
                                     activeGrid === 'wheels' ? selectedWheel.id : selectedInterior.id)
                                     ? 'selected' : ''}`}
                                 style={{ backgroundImage: `url(${item.image})` }}
-                                onClick={() => handleSelectItem(item)}
+                                onClick={() => checkConvertible(item)}
                             >
                                 <div className="grid-item-overlay">
                                     <div className="grid-item-detail">
-                                        <p>{item.name || item.color} <br /> 💵 ${item.price}</p>
+                                        <p>{item.name || item.color} <br /> 💵 ${item.price} <br /> {item.isconvertibleonly ? 'Convertible Only' : ''} </p>
                                     </div>
                                 </div>
                             </div>
