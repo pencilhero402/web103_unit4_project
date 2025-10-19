@@ -21,7 +21,7 @@ The following **required** functionality is completed:
 - [x] **The price of the `CustomItem` (e.g. car) changes dynamically as different options are selected *OR* The app displays the total price of all features.**
 - [x] **The visual interface changes in response to at least one customizable feature.**
 - [x] **The user can submit their choices to save the item to the list of created `CustomItem`s.**
-- [ ] **If a user submits a feature combo that is impossible, they should receive an appropriate error message and the item should not be saved to the database.**
+- [x] **If a user submits a feature combo that is impossible, they should receive an appropriate error message and the item should not be saved to the database.**
 - [x] **Users can view a list of all submitted `CustomItem`s.**
 - [x] **Users can edit a submitted `CustomItem` from the list view of submitted `CustomItem`s.**
 - [x] **Users can delete a submitted `CustomItem` from the list view of submitted `CustomItem`s.**
@@ -30,7 +30,7 @@ The following **required** functionality is completed:
 
 The following **optional** features are implemented:
 
-- [ ] Selecting particular options prevents incompatible options from being selected even before form submission
+- [x] Selecting particular options prevents incompatible options from being selected even before form submission
 
 The following **additional** features are implemented:
 
@@ -40,7 +40,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented required features:
 
-<img src='https://imgur.com/a/FuupSn6.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://imgur.com/0xGeBRA.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 <!-- Replace this with whatever GIF tool you used! -->
 GIF created with [Kap]  GIF tool here
